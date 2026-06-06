@@ -3,449 +3,129 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nexus Rift League — CS2 Amateur League</title>
+<title>Nexus Rift League</title>
 <style>
-:root{
-  --bg:#050505;
-  --card:#111111;
-  --card2:#171717;
-  --line:#2a2a2a;
-  --text:#f4f4f4;
-  --muted:#a3a3a3;
-  --white:#ffffff;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  background:#050505;
-  color:var(--text);
-  font-family:Inter,Arial,Helvetica,sans-serif;
-}
-body:before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(circle at 80% 0%,rgba(255,255,255,.16),transparent 28%),
-    radial-gradient(circle at 20% 35%,rgba(255,255,255,.07),transparent 25%),
-    linear-gradient(180deg,#0a0a0a,#030303);
-  z-index:-2;
-}
-body:after{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:
-    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
-  background-size:48px 48px;
-  mask-image:linear-gradient(#000 35%,transparent 95%);
-  z-index:-1;
-}
+:root{--bg:#050505;--card:#111;--card2:#171717;--line:#2b2b2b;--text:#f7f7f7;--muted:#9b9b9b;--accent:#fff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#050505;color:var(--text);font-family:Inter,Arial,Helvetica,sans-serif}
+body:before{content:"";position:fixed;inset:0;background:radial-gradient(circle at 75% 10%,#282828 0,#0c0c0c 32%,#050505 70%);z-index:-2}
+body:after{content:"";position:fixed;inset:0;background:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:48px 48px;z-index:-1;mask-image:linear-gradient(#000,transparent 90%)}
 .wrap{width:min(1180px,calc(100% - 36px));margin:auto}
-header{
-  position:sticky;
-  top:0;
-  z-index:10;
-  background:rgba(5,5,5,.76);
-  backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--line);
-}
-.nav{
-  height:78px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-.brand{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  font-weight:950;
-  letter-spacing:.08em;
-}
-.logo{
-  width:48px;
-  height:48px;
-  border-radius:15px;
-  background:#fff;
-  color:#000;
-  display:grid;
-  place-items:center;
-  font-weight:950;
-}
-.brand span{line-height:1.05}
-.links{display:flex;gap:24px}
-.links a{
-  color:#bdbdbd;
-  text-decoration:none;
-  font-size:14px;
-}
-.links a:hover{color:#fff}
-.hero{
-  padding:92px 0 86px;
-  display:grid;
-  grid-template-columns:1.12fr .88fr;
-  gap:72px;
-  align-items:center;
-}
-.pill{
-  display:inline-flex;
-  border:1px solid var(--line);
-  border-radius:999px;
-  padding:9px 14px;
-  color:#d8d8d8;
-  background:rgba(255,255,255,.035);
-  font-size:13px;
-}
-h1{
-  margin:28px 0 24px;
-  font-size:clamp(54px,8vw,112px);
-  line-height:.86;
-  letter-spacing:-.075em;
-  text-transform:uppercase;
-}
-.lead{
-  max-width:700px;
-  color:#d4d4d4;
-  font-size:18px;
-  line-height:1.65;
-}
-.btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
-.btn{
-  display:inline-flex;
-  padding:15px 23px;
-  border-radius:999px;
-  background:#fff;
-  color:#000;
-  text-decoration:none;
-  font-weight:950;
-}
-.btn.ghost{
-  background:transparent;
-  color:#fff;
-  border:1px solid var(--line);
-}
-.panel{
-  border:1px solid var(--line);
-  border-radius:30px;
-  background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.025));
-  padding:28px;
-  min-height:390px;
-  box-shadow:0 20px 80px rgba(0,0,0,.38);
-}
-.big{
-  height:160px;
-  border:1px solid #3a3a3a;
-  border-radius:24px;
-  display:grid;
-  place-items:center;
-  font-size:70px;
-  font-weight:950;
-  letter-spacing:.06em;
-}
-.stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin:16px 0;
-}
-.stat{
-  border:1px solid var(--line);
-  border-radius:18px;
-  background:#101010;
-  padding:18px;
-}
-.stat b{font-size:30px;display:block}
-.stat span{font-size:12px;color:#aaa;text-transform:uppercase}
-section{
-  padding:72px 0;
-  border-top:1px solid rgba(255,255,255,.08);
-}
-.kicker{
-  color:#aaa;
-  letter-spacing:.24em;
-  font-size:12px;
-  font-weight:900;
-}
-.title{
-  font-size:36px;
-  margin:9px 0 25px;
-  letter-spacing:-.035em;
-}
-.grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:16px;
-}
-.card{
-  border:1px solid var(--line);
-  border-radius:22px;
-  background:rgba(255,255,255,.045);
-  padding:20px;
-}
-.team-logo{
-  width:56px;
-  height:56px;
-  border-radius:16px;
-  background:#fff;
-  color:#000;
-  display:grid;
-  place-items:center;
-  font-weight:950;
-  margin-bottom:18px;
-}
-.card h3{margin:0 0 8px;font-size:20px}
-.muted{color:#aaa;line-height:1.5}
-.matches{display:grid;gap:12px}
-.match{
-  display:grid;
-  grid-template-columns:1fr auto 1fr auto;
-  gap:18px;
-  align-items:center;
-  border:1px solid var(--line);
-  border-radius:20px;
-  background:#101010;
-  padding:18px;
-}
-.match b{font-size:17px}
-.score{
-  font-size:28px;
-  font-weight:950;
-  min-width:60px;
-  text-align:center;
-}
-.status{
-  font-size:12px;
-  border:1px solid var(--line);
-  border-radius:999px;
-  padding:8px 12px;
-  color:#bbb;
-  text-align:center;
-  white-space:nowrap;
-}
-table{
-  width:100%;
-  border-collapse:collapse;
-  border:1px solid var(--line);
-  border-radius:20px;
-  overflow:hidden;
-  background:#101010;
-}
-th,td{
-  text-align:left;
-  padding:16px;
-  border-bottom:1px solid #242424;
-}
-th{
-  color:#aaa;
-  font-size:12px;
-  text-transform:uppercase;
-}
-.news{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:16px;
-}
-.mvp{
-  display:grid;
-  grid-template-columns:.7fr 1.3fr;
-  gap:16px;
-  align-items:stretch;
-}
-.mvp-badge{
-  border:1px solid var(--line);
-  border-radius:26px;
-  background:#fff;
-  color:#000;
-  display:grid;
-  place-items:center;
-  min-height:210px;
-  font-size:42px;
-  font-weight:950;
-}
-footer{
-  padding:36px 0;
-  color:#777;
-  border-top:1px solid var(--line);
-}
-@media(max-width:900px){
-  .hero,.mvp{grid-template-columns:1fr}
-  .grid,.news{grid-template-columns:1fr 1fr}
-}
-@media(max-width:620px){
-  .links{display:none}
-  .grid,.news{grid-template-columns:1fr}
-  .match{grid-template-columns:1fr}
-  .score{text-align:left}
-  h1{font-size:54px}
-}
+header{position:sticky;top:0;z-index:5;background:rgba(5,5,5,.72);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{height:78px;display:flex;align-items:center;justify-content:space-between}.brand{display:flex;gap:14px;align-items:center;font-weight:950;letter-spacing:.08em}
+.logo{width:48px;height:48px;border-radius:15px;background:#fff;color:#000;display:grid;place-items:center;font-weight:950}
+.brand span{display:block;line-height:1.05}.links{display:flex;gap:22px}.links a{color:#bbb;text-decoration:none;font-size:14px}.links a:hover{color:#fff}
+.hero{padding:92px 0 82px;display:grid;grid-template-columns:1.15fr .85fr;gap:70px;align-items:center}.pill{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:9px 14px;color:#dcdcdc;font-size:13px;background:rgba(255,255,255,.035)}
+h1{font-size:clamp(54px,8vw,112px);line-height:.86;margin:28px 0 24px;letter-spacing:-.075em;text-transform:uppercase}
+.lead{font-size:18px;line-height:1.65;color:#d5d5d5;max-width:680px}.btn{display:inline-flex;margin-top:26px;padding:15px 23px;border-radius:999px;background:#fff;color:#000;text-decoration:none;font-weight:950}
+.panel{border:1px solid var(--line);border-radius:30px;background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.025));padding:28px;min-height:360px;box-shadow:0 20px 80px rgba(0,0,0,.35)}
+.big{height:150px;border:1px solid #3a3a3a;border-radius:24px;display:grid;place-items:center;font-size:64px;font-weight:950;letter-spacing:.05em}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}.stat{border:1px solid var(--line);border-radius:18px;background:#101010;padding:18px}.stat b{font-size:28px;display:block}.stat span{font-size:12px;color:#aaa;text-transform:uppercase}
+section{padding:70px 0;border-top:1px solid rgba(255,255,255,.08)}.kicker{color:#aaa;letter-spacing:.24em;font-size:12px;font-weight:900}.title{font-size:34px;margin:8px 0 24px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.card{border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.045);padding:20px}.team-logo{width:54px;height:54px;border-radius:16px;background:#fff;color:#000;display:grid;place-items:center;font-weight:950;margin-bottom:18px}.muted{color:#aaa}
+.matches{display:grid;gap:12px}.match{display:grid;grid-template-columns:1fr auto 1fr auto;gap:18px;align-items:center;border:1px solid var(--line);border-radius:20px;background:#101010;padding:18px}.score{font-size:26px;font-weight:950}.status{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:8px 11px;color:#bbb}
+table{width:100%;border-collapse:collapse;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:#101010}th,td{text-align:left;padding:16px;border-bottom:1px solid #242424}th{color:#aaa;font-size:12px;text-transform:uppercase}.news{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+footer{padding:36px 0;color:#777;border-top:1px solid var(--line)}
+@media(max-width:860px){.hero{grid-template-columns:1fr}.grid,.news{grid-template-columns:1fr}.match{grid-template-columns:1fr}.links{display:none}}
 </style>
 </head>
 <body>
-<header>
-  <div class="wrap nav">
-    <div class="brand">
-      <div class="logo">NR</div>
-      <span>NEXUS RIFT<br>LEAGUE</span>
-    </div>
-    <nav class="links">
-      <a href="#teams">Teams</a>
-      <a href="#matches">Matches</a>
-      <a href="#standings">Standings</a>
-      <a href="#mvp">MVP</a>
-      <a href="#news">News</a>
-    </nav>
-  </div>
-</header>
-
+<header><div class="wrap nav"><div class="brand"><div class="logo">NR</div><span>NEXUS RIFT<br>LEAGUE</span></div><nav class="links"><a href="#teams">Teams</a><a href="#matches">Matches</a><a href="#standings">Standings</a><a href="#news">News</a></nav></div></header>
 <main class="wrap">
-  <section class="hero">
-    <div>
-      <div class="pill">CS2 AMATEUR LEAGUE • SEASON 1</div>
-      <h1>Where future legends begin.</h1>
-      <p class="lead">Минималистичная онлайн-лига для молодых CS2-команд: группы, плей-офф, расписание, результаты, MVP недели и новости команд.</p>
-      <div class="btns">
-        <a class="btn" href="#teams">Смотреть команды</a>
-        <a class="btn ghost" href="#matches">Расписание</a>
-      </div>
-    </div>
-
-    <div class="panel">
-      <div class="big">NRL</div>
-      <div class="stats">
-        <div class="stat"><b id="teamCount">0</b><span>Teams</span></div>
-        <div class="stat"><b id="matchCount">0</b><span>Matches</span></div>
-        <div class="stat"><b>BO3</b><span>Format</span></div>
-      </div>
-      <p class="lead" style="font-size:16px">Season 1: 16 команд, 2 группы, Top-8 playoffs, Grand Final BO5.</p>
-    </div>
-  </section>
-
-  <section id="teams">
-    <div class="kicker">TEAMS</div>
-    <h2 class="title">Команды сезона</h2>
-    <div id="teamsBox" class="grid"></div>
-  </section>
-
-  <section id="matches">
-    <div class="kicker">MATCHES</div>
-    <h2 class="title">Расписание и результаты</h2>
-    <div id="matchesBox" class="matches"></div>
-  </section>
-
-  <section id="standings">
-    <div class="kicker">STANDINGS</div>
-    <h2 class="title">Таблица сезона</h2>
-    <div id="standingsBox"></div>
-  </section>
-
-  <section id="mvp">
-    <div class="kicker">MVP WEEK</div>
-    <h2 class="title">Лучший игрок недели</h2>
-    <div class="mvp">
-      <div class="mvp-badge">MVP</div>
-      <div class="card">
-        <h3 id="mvpName">—</h3>
-        <p class="muted" id="mvpText"></p>
-      </div>
-    </div>
-  </section>
-
-  <section id="news">
-    <div class="kicker">NEWS</div>
-    <h2 class="title">Новости лиги</h2>
-    <div id="newsBox" class="news"></div>
-  </section>
+<section class="hero">
+<div><div class="pill">CS2 AMATEUR LEAGUE • SEASON 1</div><h1>Where future legends begin.</h1><p class="lead">Минималистичная онлайн-лига для молодых CS2-команд: группы, плей-офф, расписание, результаты, MVP недели и новости команд.</p><a class="btn" href="#teams">Смотреть команды</a></div>
+<div class="panel"><div class="big">NRL</div><div class="stats"><div class="stat"><b id="teamCount">0</b><span>Teams</span></div><div class="stat"><b id="matchCount">0</b><span>Matches</span></div><div class="stat"><b>BO3</b><span>Format</span></div></div><p class="lead" style="font-size:16px">Season 1: 16 команд, 2 группы, Top-8 playoffs, Grand Final BO5.</p></div>
+</section>
+<section id="teams"><div class="kicker">TEAMS</div><h2 class="title">Команды сезона</h2><div id="teamsBox" class="grid"></div></section>
+<section id="matches"><div class="kicker">MATCHES</div><h2 class="title">Расписание и результаты</h2><div id="matchesBox" class="matches"></div></section>
+<section id="standings"><div class="kicker">STANDINGS</div><h2 class="title">Таблица сезона</h2><div id="standingsBox"></div></section>
+<section><div class="kicker">MVP WEEK</div><h2 class="title" id="mvpName">—</h2><p class="lead" id="mvpText"></p></section>
+<section id="news"><div class="kicker">NEWS</div><h2 class="title">Новости лиги</h2><div id="newsBox" class="news"></div></section>
 </main>
-
-<footer>
-  <div class="wrap">© Nexus Rift League • CS2 amateur esports project</div>
-</footer>
-
+<footer><div class="wrap">© Nexus Rift League • CS2 amateur esports project</div></footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const DEFAULT_DATA={
-  teams:[
-    {name:'RIFT ACADEMY',tag:'RIFT',group:'A'},
-    {name:'ZERO POINT',tag:'ZERO',group:'A'},
-    {name:'BLACK PIXEL',tag:'BPX',group:'B'},
-    {name:'NOVA FIVE',tag:'NOVA',group:'B'}
-  ],
-  matches:[
-    {a:'RIFT ACADEMY',b:'ZERO POINT',date:'12 Jul • 19:00',score:'—',status:'UPCOMING'},
-    {a:'BLACK PIXEL',b:'NOVA FIVE',date:'12 Jul • 21:00',score:'—',status:'UPCOMING'}
-  ],
-  standings:[
-    {team:'RIFT ACADEMY',w:0,l:0,rd:0},
-    {team:'ZERO POINT',w:0,l:0,rd:0},
-    {team:'BLACK PIXEL',w:0,l:0,rd:0},
-    {team:'NOVA FIVE',w:0,l:0,rd:0}
-  ],
-  mvp:{name:'MVP недели ещё не выбран',text:'После первых матчей здесь появится лучший игрок недели.'},
-  news:[
-    {title:'Открыта регистрация Season 1',text:'Мы запускаем первый сезон Nexus Rift League для молодых CS2-команд.'},
-    {title:'Формат сезона',text:'16 команд, групповой этап BO3 и плей-офф Top-8. Финал BO5.'}
-  ]
-};
+const SUPABASE_URL = "https://ghzlrspdqjnjolbntxgu.supabase.co";
+const SUPABASE_KEY = "sb_publishable_pCJyQpbjQxJOcJeEwHTYaA_3JIYIRvB";
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-function getData(){
-  return JSON.parse(localStorage.getItem('nrl_data') || 'null') || DEFAULT_DATA;
+function tagFromName(name){
+  return (name || "NR").slice(0,4).toUpperCase();
 }
 
-function render(){
-  const d=getData();
+async function loadData(){
+  const [teamsRes, matchesRes, standingsRes, newsRes] = await Promise.all([
+    sb.from("teams").select("*").order("id", { ascending: true }),
+    sb.from("matches").select("*").order("id", { ascending: true }),
+    sb.from("standings").select("*").order("wins", { ascending: false }),
+    sb.from("news").select("*").order("created_at", { ascending: false })
+  ]);
 
-  document.getElementById('teamCount').textContent=d.teams.length;
-  document.getElementById('matchCount').textContent=d.matches.length;
+  if (teamsRes.error || matchesRes.error || standingsRes.error || newsRes.error) {
+    console.error("Supabase error:", teamsRes.error, matchesRes.error, standingsRes.error, newsRes.error);
+  }
 
-  document.getElementById('teamsBox').innerHTML=d.teams.map(t=>`
+  return {
+    teams: teamsRes.data || [],
+    matches: matchesRes.data || [],
+    standings: standingsRes.data || [],
+    news: newsRes.data || []
+  };
+}
+
+async function render(){
+  const d = await loadData();
+
+  teamCount.textContent = d.teams.length;
+  matchCount.textContent = d.matches.length;
+
+  teamsBox.innerHTML = d.teams.map(t => `
     <div class="card">
-      <div class="team-logo">${t.tag || 'NR'}</div>
+      <div class="team-logo">${t.tag || tagFromName(t.name)}</div>
       <h3>${t.name}</h3>
-      <p class="muted">Group ${t.group}</p>
+      <p class="muted">Group ${t.group_name || 'A'}</p>
     </div>
   `).join('');
 
-  document.getElementById('matchesBox').innerHTML=d.matches.map(m=>`
+  matchesBox.innerHTML = d.matches.map(m => `
     <div class="match">
-      <b>${m.a}</b>
-      <div class="score">${m.score}</div>
-      <b>${m.b}</b>
-      <span class="status">${m.status}<br>${m.date || ''}</span>
+      <b>${m.team_a}</b>
+      <div class="score">${m.score || '—'}</div>
+      <b>${m.team_b}</b>
+      <span class="status">${m.status || 'UPCOMING'}<br>${m.match_date || ''}</span>
     </div>
   `).join('');
 
-  document.getElementById('standingsBox').innerHTML=`
+  standingsBox.innerHTML = `
     <table>
       <thead>
         <tr><th>#</th><th>Team</th><th>W</th><th>L</th><th>RD</th></tr>
       </thead>
       <tbody>
-        ${d.standings.map((s,i)=>`
+        ${d.standings.map((s,i) => `
           <tr>
             <td>${i+1}</td>
             <td>${s.team}</td>
-            <td>${s.w}</td>
-            <td>${s.l}</td>
-            <td>${s.rd}</td>
+            <td>${s.wins}</td>
+            <td>${s.losses}</td>
+            <td>${s.round_diff}</td>
           </tr>
         `).join('')}
       </tbody>
     </table>
   `;
 
-  document.getElementById('mvpName').textContent=d.mvp.name;
-  document.getElementById('mvpText').textContent=d.mvp.text;
+  mvpName.textContent = "MVP недели ещё не выбран";
+  mvpText.textContent = "После первых матчей здесь появится лучший игрок недели.";
 
-  document.getElementById('newsBox').innerHTML=d.news.map(n=>`
+  newsBox.innerHTML = d.news.map(n => `
     <article class="card">
       <div class="kicker">NRL UPDATE</div>
       <h3>${n.title}</h3>
-      <p class="muted">${n.text}</p>
+      <p class="muted">${n.body || ''}</p>
     </article>
   `).join('');
 }
+
 render();
 </script>
 </body>
