@@ -6,43 +6,283 @@
 <title>NRL Owner Panel</title>
 <style>
 :root{--bg:#050505;--card:#111;--line:#2b2b2b;--text:#f7f7f7;--muted:#9b9b9b}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0,#252525,#050505 45%,#000);color:var(--text);font-family:Inter,Arial,Helvetica,sans-serif}.wrap{width:min(1180px,calc(100% - 36px));margin:auto}.hidden{display:none!important}
-.login{min-height:100vh;display:grid;place-items:center}.card{border:1px solid var(--line);background:rgba(255,255,255,.055);border-radius:26px;padding:26px;box-shadow:0 22px 70px rgba(0,0,0,.35)}.login .card{width:min(460px,calc(100% - 28px))}
-h1{font-size:42px;margin:0 0 10px;letter-spacing:-.04em}h2{margin:0 0 16px}.muted,p{color:var(--muted);line-height:1.5}input,textarea,select{width:100%;padding:14px 15px;border-radius:14px;border:1px solid var(--line);background:#080808;color:white;margin:7px 0 12px;font:inherit}button,.linkbtn{padding:13px 18px;border-radius:999px;border:0;background:white;color:#000;font-weight:900;cursor:pointer;text-decoration:none;display:inline-flex}.ghost{background:transparent;color:#fff;border:1px solid var(--line)}
-.top{height:78px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.brand{font-weight:950;letter-spacing:.08em}.actions{display:flex;gap:10px;flex-wrap:wrap}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin:24px 0}.full{grid-column:1/-1}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.list{border-top:1px solid var(--line);margin-top:12px;padding-top:12px;color:var(--muted);font-size:14px}.item{padding:10px 0;border-bottom:1px solid #242424;display:flex;justify-content:space-between;gap:10px;align-items:center}.item button{padding:8px 11px;font-size:12px}@media(max-width:760px){.grid,.row{grid-template-columns:1fr}.full{grid-column:auto}h1{font-size:34px}}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at 80% 0,#252525,#050505 45%,#000);color:var(--text);font-family:Inter,Arial,Helvetica,sans-serif}
+.wrap{width:min(1180px,calc(100% - 36px));margin:auto}
+.hidden{display:none!important}
+.login{min-height:100vh;display:grid;place-items:center}
+.card{border:1px solid var(--line);background:rgba(255,255,255,.055);border-radius:26px;padding:26px;box-shadow:0 22px 70px rgba(0,0,0,.35)}
+.login .card{width:min(460px,calc(100% - 28px))}
+h1{font-size:42px;margin:0 0 10px;letter-spacing:-.04em}
+h2{margin:0 0 16px}
+p{color:var(--muted);line-height:1.5}
+input,textarea,select{width:100%;padding:14px 15px;border-radius:14px;border:1px solid var(--line);background:#080808;color:white;margin:7px 0 12px;font:inherit}
+button,.linkbtn{padding:13px 18px;border-radius:999px;border:0;background:white;color:#000;font-weight:900;cursor:pointer;text-decoration:none;display:inline-flex}
+.ghost{background:transparent;color:#fff;border:1px solid var(--line)}
+.top{height:78px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+.brand{font-weight:950;letter-spacing:.08em}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin:24px 0}
+.full{grid-column:1/-1}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.list{border-top:1px solid var(--line);margin-top:12px;padding-top:12px;color:var(--muted);font-size:14px}
+.item{padding:10px 0;border-bottom:1px solid #242424;display:flex;justify-content:space-between;gap:10px;align-items:center}
+.item button{padding:8px 11px;font-size:12px}
+.notice{border:1px solid var(--line);border-radius:18px;padding:14px 16px;background:#0b0b0b;color:#aaa;margin:16px 0}
+.ok{color:#72ff9d}.bad{color:#ff7676}
+@media(max-width:760px){.grid,.row{grid-template-columns:1fr}.full{grid-column:auto}h1{font-size:34px}}
 </style>
 </head>
 <body>
-<section class="login" id="loginScreen"><div class="card"><h1>Owner Panel</h1><p>Приватная админка Nexus Rift League. На публичном сайте ссылки сюда нет.</p><input id="passInput" type="password" placeholder="Пароль"><button id="loginBtn">Войти</button><p id="err" style="color:#ff7676"></p></div></section>
-<section id="appScreen" class="hidden"><div class="wrap"><div class="top"><div class="brand">NEXUS RIFT LEAGUE • ADMIN</div><div class="actions"><a class="linkbtn ghost" href="../index.html">Открыть сайт</a><button class="ghost" id="logoutBtn">Выйти</button></div></div>
-<div style="padding:36px 0"><h1>Панель управления</h1><p>Меняй команды, матчи, таблицу, MVP и новости. После сохранения открой публичный сайт — данные подтянутся из браузера.</p>
-<div class="grid">
-<div class="card"><h2>Добавить команду</h2><input id="teamName" placeholder="Название команды"><input id="teamTag" placeholder="Тег / лого, например RIFT"><select id="teamGroup"><option>A</option><option>B</option></select><button id="addTeamBtn">Добавить</button><div id="teamsList" class="list"></div></div>
-<div class="card"><h2>Добавить матч</h2><input id="matchA" placeholder="Команда 1"><input id="matchB" placeholder="Команда 2"><input id="matchDate" placeholder="Дата, например 12 Jul • 19:00"><input id="matchScore" placeholder="Счёт, например 2:1 или —"><select id="matchStatus"><option>UPCOMING</option><option>LIVE</option><option>FINISHED</option></select><button id="addMatchBtn">Добавить матч</button><div id="matchesAdmin" class="list"></div></div>
-<div class="card"><h2>Таблица сезона</h2><input id="stTeam" placeholder="Команда"><div class="row"><input id="stW" type="number" placeholder="W"><input id="stL" type="number" placeholder="L"></div><input id="stRD" type="number" placeholder="RD"><button id="addStandingBtn">Добавить/обновить</button><div id="standingsAdmin" class="list"></div></div>
-<div class="card"><h2>MVP недели</h2><input id="mvpN" placeholder="Ник игрока"><textarea id="mvpT" placeholder="Описание"></textarea><button id="saveMvpBtn">Сохранить MVP</button></div>
-<div class="card full"><h2>Новости</h2><input id="newsTitle" placeholder="Заголовок новости"><textarea id="newsText" placeholder="Текст новости"></textarea><button id="addNewsBtn">Добавить новость</button><div id="newsAdmin" class="list"></div></div>
-<div class="card full"><h2>Сервис</h2><div class="actions"><button id="resetBtn">Сбросить демо-данные</button><button class="ghost" id="exportBtn">Скачать JSON</button></div></div>
-</div></div></div></section>
+
+<section class="login" id="loginScreen">
+  <div class="card">
+    <h1>Owner Panel</h1>
+    <p>Приватная админка Nexus Rift League. Данные сохраняются в Supabase.</p>
+    <input id="passInput" type="password" placeholder="Пароль">
+    <button id="loginBtn">Войти</button>
+    <p id="err" class="bad"></p>
+  </div>
+</section>
+
+<section id="appScreen" class="hidden">
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">NEXUS RIFT LEAGUE • ADMIN</div>
+      <div class="actions">
+        <a class="linkbtn ghost" href="index.html">Открыть сайт</a>
+        <button class="ghost" id="logoutBtn">Выйти</button>
+      </div>
+    </div>
+
+    <div style="padding:36px 0">
+      <h1>Панель управления</h1>
+      <p>Добавляй команды, матчи, таблицу и новости. Всё будет видно всем посетителям сайта.</p>
+      <div id="status" class="notice">Подключение к Supabase...</div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>Добавить команду</h2>
+          <input id="teamName" placeholder="Название команды">
+          <input id="teamTag" placeholder="Тег / лого, например RIFT">
+          <select id="teamGroup"><option>A</option><option>B</option></select>
+          <button id="addTeamBtn">Добавить</button>
+          <div id="teamsList" class="list"></div>
+        </div>
+
+        <div class="card">
+          <h2>Добавить матч</h2>
+          <input id="matchA" placeholder="Команда 1">
+          <input id="matchB" placeholder="Команда 2">
+          <input id="matchDate" placeholder="Дата, например 12 Jul • 19:00">
+          <input id="matchScore" placeholder="Счёт, например 2:1 или —">
+          <select id="matchStatus"><option>UPCOMING</option><option>LIVE</option><option>FINISHED</option></select>
+          <button id="addMatchBtn">Добавить матч</button>
+          <div id="matchesAdmin" class="list"></div>
+        </div>
+
+        <div class="card">
+          <h2>Таблица сезона</h2>
+          <input id="stTeam" placeholder="Команда">
+          <div class="row">
+            <input id="stW" type="number" placeholder="W">
+            <input id="stL" type="number" placeholder="L">
+          </div>
+          <input id="stRD" type="number" placeholder="RD">
+          <button id="addStandingBtn">Добавить/обновить</button>
+          <div id="standingsAdmin" class="list"></div>
+        </div>
+
+        <div class="card">
+          <h2>MVP недели</h2>
+          <p>Пока MVP не вынесен в Supabase. Добавим отдельной таблицей позже.</p>
+          <input placeholder="Ник игрока" disabled>
+          <textarea placeholder="Описание" disabled></textarea>
+          <button class="ghost" disabled>Скоро</button>
+        </div>
+
+        <div class="card full">
+          <h2>Новости</h2>
+          <input id="newsTitle" placeholder="Заголовок новости">
+          <textarea id="newsText" placeholder="Текст новости"></textarea>
+          <button id="addNewsBtn">Добавить новость</button>
+          <div id="newsAdmin" class="list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const PASS='nrl2026';
-const DEFAULT_DATA={teams:[{name:'RIFT ACADEMY',tag:'RIFT',group:'A'},{name:'ZERO POINT',tag:'ZERO',group:'A'},{name:'BLACK PIXEL',tag:'BPX',group:'B'},{name:'NOVA FIVE',tag:'NOVA',group:'B'}],matches:[{a:'RIFT ACADEMY',b:'ZERO POINT',date:'12 Jul • 19:00',score:'—',status:'UPCOMING'},{a:'BLACK PIXEL',b:'NOVA FIVE',date:'12 Jul • 21:00',score:'—',status:'UPCOMING'}],standings:[{team:'RIFT ACADEMY',w:0,l:0,rd:0},{team:'ZERO POINT',w:0,l:0,rd:0},{team:'BLACK PIXEL',w:0,l:0,rd:0},{team:'NOVA FIVE',w:0,l:0,rd:0}],mvp:{name:'MVP недели ещё не выбран',text:'После первых матчей здесь появится лучший игрок недели.'},news:[{title:'Открыта регистрация Season 1',text:'Мы запускаем первый сезон Nexus Rift League для молодых CS2-команд.'},{title:'Формат сезона',text:'16 команд, групповой этап BO3 и плей-офф Top-8. Финал BO5.'}]};
-function data(){return JSON.parse(localStorage.getItem('nrl_data')||'null')||DEFAULT_DATA}
-function save(d){localStorage.setItem('nrl_data',JSON.stringify(d));renderAdmin()}
-function show(){document.getElementById('loginScreen').classList.add('hidden');document.getElementById('appScreen').classList.remove('hidden');renderAdmin()}
-document.getElementById('loginBtn').onclick=()=>{const v=document.getElementById('passInput').value.trim();if(v===PASS){sessionStorage.setItem('nrl_admin','1');show()}else document.getElementById('err').textContent='Неверный пароль'};
-document.getElementById('passInput').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('loginBtn').click()});
-document.getElementById('logoutBtn').onclick=()=>{sessionStorage.removeItem('nrl_admin');location.reload()};
-if(sessionStorage.getItem('nrl_admin')==='1')show();
-function renderAdmin(){let d=data();teamsList.innerHTML=d.teams.map((t,i)=>`<div class="item"><span>${t.name} • ${t.tag} • Group ${t.group}</span><button class="ghost" onclick="del('teams',${i})">Удалить</button></div>`).join('');matchesAdmin.innerHTML=d.matches.map((m,i)=>`<div class="item"><span>${m.a} vs ${m.b} • ${m.score} • ${m.status}</span><button class="ghost" onclick="del('matches',${i})">Удалить</button></div>`).join('');standingsAdmin.innerHTML=d.standings.map((s,i)=>`<div class="item"><span>${i+1}. ${s.team} W:${s.w} L:${s.l} RD:${s.rd}</span><button class="ghost" onclick="del('standings',${i})">Удалить</button></div>`).join('');newsAdmin.innerHTML=d.news.map((n,i)=>`<div class="item"><span><b>${n.title}</b> — ${n.text}</span><button class="ghost" onclick="del('news',${i})">Удалить</button></div>`).join('')}
-document.getElementById('addTeamBtn').onclick=()=>{let d=data();if(!teamName.value.trim())return;d.teams.push({name:teamName.value.trim(),tag:(teamTag.value.trim()||teamName.value.slice(0,3).toUpperCase()),group:teamGroup.value});save(d);teamName.value=teamTag.value=''}
-document.getElementById('addMatchBtn').onclick=()=>{let d=data();if(!matchA.value.trim()||!matchB.value.trim())return;d.matches.push({a:matchA.value.trim(),b:matchB.value.trim(),date:matchDate.value.trim(),score:matchScore.value.trim()||'—',status:matchStatus.value});save(d);matchA.value=matchB.value=matchDate.value=matchScore.value=''}
-document.getElementById('addStandingBtn').onclick=()=>{let d=data();if(!stTeam.value.trim())return;let obj={team:stTeam.value.trim(),w:+stW.value||0,l:+stL.value||0,rd:+stRD.value||0};let i=d.standings.findIndex(x=>x.team.toLowerCase()===obj.team.toLowerCase());if(i>=0)d.standings[i]=obj;else d.standings.push(obj);save(d);stTeam.value=stW.value=stL.value=stRD.value=''}
-document.getElementById('saveMvpBtn').onclick=()=>{let d=data();d.mvp={name:mvpN.value.trim()||'MVP недели ещё не выбран',text:mvpT.value.trim()||'Описание появится здесь.'};save(d)}
-document.getElementById('addNewsBtn').onclick=()=>{let d=data();if(!newsTitle.value.trim())return;d.news.unshift({title:newsTitle.value.trim(),text:newsText.value.trim()});save(d);newsTitle.value=newsText.value=''}
-function del(k,i){let d=data();d[k].splice(i,1);save(d)}
-document.getElementById('resetBtn').onclick=()=>{localStorage.setItem('nrl_data',JSON.stringify(DEFAULT_DATA));renderAdmin()}
-document.getElementById('exportBtn').onclick=()=>{let blob=new Blob([JSON.stringify(data(),null,2)],{type:'application/json'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='nrl-data.json';a.click()}
+const PASS = 'nrl2026';
+
+const SUPABASE_URL = "https://ghzlrspdqjnjolbntxgu.supabase.co";
+const SUPABASE_KEY = "sb_publishable_pCJyQpbjQxJOcJeEwHTYaA_3JIYIRvB";
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+function tagFromName(name){
+  return (name || "NR").slice(0,4).toUpperCase();
+}
+
+async function loadData(){
+  const [teamsRes, matchesRes, standingsRes, newsRes] = await Promise.all([
+    sb.from("teams").select("*").order("id", { ascending: true }),
+    sb.from("matches").select("*").order("id", { ascending: true }),
+    sb.from("standings").select("*").order("wins", { ascending: false }),
+    sb.from("news").select("*").order("created_at", { ascending: false })
+  ]);
+
+  const errors = [teamsRes.error, matchesRes.error, standingsRes.error, newsRes.error].filter(Boolean);
+  if (errors.length) {
+    console.error(errors);
+    document.getElementById("status").innerHTML = '<span class="bad">Ошибка Supabase. Проверь SQL и политики RLS.</span>';
+  } else {
+    document.getElementById("status").innerHTML = '<span class="ok">Supabase подключён. Данные сохраняются в базе.</span>';
+  }
+
+  return {
+    teams: teamsRes.data || [],
+    matches: matchesRes.data || [],
+    standings: standingsRes.data || [],
+    news: newsRes.data || []
+  };
+}
+
+async function renderAdmin(){
+  const d = await loadData();
+
+  teamsList.innerHTML = d.teams.map(t => `
+    <div class="item">
+      <span>${t.name} • ${t.tag} • Group ${t.group_name}</span>
+      <button class="ghost" onclick="deleteRow('teams', ${t.id})">Удалить</button>
+    </div>
+  `).join('');
+
+  matchesAdmin.innerHTML = d.matches.map(m => `
+    <div class="item">
+      <span>${m.team_a} vs ${m.team_b} • ${m.score || '—'} • ${m.status}</span>
+      <button class="ghost" onclick="deleteRow('matches', ${m.id})">Удалить</button>
+    </div>
+  `).join('');
+
+  standingsAdmin.innerHTML = d.standings.map((s,i) => `
+    <div class="item">
+      <span>${i+1}. ${s.team} W:${s.wins} L:${s.losses} RD:${s.round_diff}</span>
+      <button class="ghost" onclick="deleteRow('standings', ${s.id})">Удалить</button>
+    </div>
+  `).join('');
+
+  newsAdmin.innerHTML = d.news.map(n => `
+    <div class="item">
+      <span><b>${n.title}</b> — ${n.body || ''}</span>
+      <button class="ghost" onclick="deleteRow('news', ${n.id})">Удалить</button>
+    </div>
+  `).join('');
+}
+
+async function addTeam(){
+  const name = teamName.value.trim();
+  if (!name) return;
+  const tag = teamTag.value.trim() || tagFromName(name);
+  const group_name = teamGroup.value;
+
+  const { error } = await sb.from("teams").insert({ name, tag, group_name });
+  if (error) return alert("Ошибка: " + error.message);
+
+  teamName.value = "";
+  teamTag.value = "";
+  renderAdmin();
+}
+
+async function addMatch(){
+  const team_a = matchA.value.trim();
+  const team_b = matchB.value.trim();
+  if (!team_a || !team_b) return;
+
+  const match_date = matchDate.value.trim();
+  const score = matchScore.value.trim() || "—";
+  const status = matchStatus.value;
+
+  const { error } = await sb.from("matches").insert({ team_a, team_b, match_date, score, status });
+  if (error) return alert("Ошибка: " + error.message);
+
+  matchA.value = "";
+  matchB.value = "";
+  matchDate.value = "";
+  matchScore.value = "";
+  renderAdmin();
+}
+
+async function addStanding(){
+  const team = stTeam.value.trim();
+  if (!team) return;
+
+  const wins = Number(stW.value) || 0;
+  const losses = Number(stL.value) || 0;
+  const round_diff = Number(stRD.value) || 0;
+
+  const { error } = await sb.from("standings").upsert(
+    { team, wins, losses, round_diff },
+    { onConflict: "team" }
+  );
+
+  if (error) return alert("Ошибка: " + error.message);
+
+  stTeam.value = "";
+  stW.value = "";
+  stL.value = "";
+  stRD.value = "";
+  renderAdmin();
+}
+
+async function addNews(){
+  const title = newsTitle.value.trim();
+  if (!title) return;
+
+  const body = newsText.value.trim();
+
+  const { error } = await sb.from("news").insert({ title, body });
+  if (error) return alert("Ошибка: " + error.message);
+
+  newsTitle.value = "";
+  newsText.value = "";
+  renderAdmin();
+}
+
+async function deleteRow(table, id){
+  if (!confirm("Удалить?")) return;
+  const { error } = await sb.from(table).delete().eq("id", id);
+  if (error) return alert("Ошибка: " + error.message);
+  renderAdmin();
+}
+
+function show(){
+  document.getElementById('loginScreen').classList.add('hidden');
+  document.getElementById('appScreen').classList.remove('hidden');
+  renderAdmin();
+}
+
+document.getElementById('loginBtn').onclick = () => {
+  const v = document.getElementById('passInput').value.trim();
+  if (v === PASS) {
+    sessionStorage.setItem('nrl_admin','1');
+    show();
+  } else {
+    document.getElementById('err').textContent = 'Неверный пароль';
+  }
+};
+
+document.getElementById('passInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('loginBtn').click();
+});
+
+document.getElementById('logoutBtn').onclick = () => {
+  sessionStorage.removeItem('nrl_admin');
+  location.reload();
+};
+
+if (sessionStorage.getItem('nrl_admin') === '1') show();
 </script>
 </body>
 </html>
